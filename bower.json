@@ -1,0 +1,18 @@
+{
+  "name": "express4-template",
+  "version": "0.0.1",
+  "authors": [
+    "razenrote <ansterd@nate.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.0.3"
+  }
+}
