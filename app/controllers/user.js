@@ -18,10 +18,10 @@ userApi.post('/', function(req, res) {
   User.create(user, function(err) {
     if (err) {
       console.log(err);
-      return res.send(503);
+      return res.send(err.httpStatus || 500, err.message);
     }
     
-    res.send(200);
+    res.send(201, 'Successfully Registered');
   });
 });
 
@@ -37,13 +37,30 @@ userApi.get('/', function(req, res) {
 });
 
 userApi.get('/:id', function(req, res) {
+
   User.getById(req.params.id, function(err, user) {
     if (err) {
       console.log(err);
-      return res.send(503);
+      return res.send(500);
     }
 
-    res.send(user);
+    res.send(200, user);
+  });
+});
+
+userApi.get('/profile/me', function(req, res) {
+
+  if (!req.session.authorized) {
+    return res.send(401, 'Not Authorized');
+  }
+
+  User.getById(req.session.userId, function(err, user) {
+    if (err) {
+      console.log(err);
+      return res.send(500);
+    }
+    
+    res.send(200, user);
   });
 });
 

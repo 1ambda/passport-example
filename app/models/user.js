@@ -10,7 +10,20 @@ var UserSchema = new mongoose.Schema({
 UserSchema.statics.create = function(params, cb) {
   var User = this;
 
-  (new User(params)).save(cb);
+  User.find({id : params.id }, function(err, result) {
+    if (err) {
+      err.httpStatus = 500;
+      return cb(err);
+      
+    } else if (result.length) {
+      var error = new Error('Already Registered');
+      error.httpStatus = 409;
+      return cb(error);
+      
+    } else {
+      (new User(params)).save(cb);
+    }
+  });
 };
 
 UserSchema.statics.getAll = function(cb) {
@@ -23,6 +36,25 @@ UserSchema.statics.getById = function(userId, cb) {
   var User = this;
 
   User.findOne({ id: userId }, cb);
+};
+
+UserSchema.statics.login = function(params, cb) {
+
+  this.find(params, function(err, result) {
+    
+    if (err) {
+      err.httpStatus = 500;
+      return cb(error);
+      
+    } else if (!result.length) {
+      var error = new Error('Not Registered or Password Incorrect');
+      error.httpStatus = 401;
+      return cb(error);
+      
+    } else {
+      return cb();
+    }
+  });
 };
 
 mongoose.model('User', UserSchema);

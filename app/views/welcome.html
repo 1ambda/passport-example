@@ -23,46 +23,11 @@
   <body ng-app="PassportApp" ng-controller="mainCtrl">
     <div>
       <header>
-	<h1>Welcome, Passport App!</h1>
+	<h1>Welcome, <%= id %>!</h1>
       </header>
+      <div ng-click="logout()" class="ui blue button">Logout</div>
     </div>
 
-    <div class="ui two column grid">
-      <div class="column">
-        <div class="ui fluid form segment">
-          <h3 class="ui header">Log-in</h3>
-          <div class="field">
-            <label for="">Id</label>
-            <input ng-model="user.id" type="text" name="id" value="" />
-	  </div>
-          <div class="field">
-            <label for="">password</label>
-            <input ng-model="user.password" type="password" name="password" value="" />
-	  </div>
-          <div ng-click="login()" class="ui blue submit button">Login</div>
-	</div>
-      </div>
-      <div class="column">
-        <div class="ui fluid form segment">
-          <h3 class="ui header">Register</h3>
-          <div class="field">
-            <label for="">Id</label>
-            <input ng-model="user.id" type="text" name="id" value="" />
-	  </div>
-          <div class="field">
-            <label for="">Email</label>
-            <input ng-model="user.email" type="email" name="email" value="" />
-	  </div>
-          <div class="field">
-            <label for="">password</label>
-            <input ng-model="user.password" type="password" name="password" value="" />
-	  </div>
-          <div ng-click="register()" class="ui red button">Register</div>
-	</div>
-      </div>
-    </div>
-    
-    
     <!-- bower script zone -->
     <script src="vendor/jquery/jquery.js"></script>
     <script src="vendor/semantic/build/packaged/javascript/semantic.js" type="text/javascript"></script>
