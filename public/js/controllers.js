@@ -1,31 +1,32 @@
 var module = angular.module('PassportApp.controllers', []);
 
-module.controller('mainCtrl', ['$scope',
-			       '$location',
+module.controller('homeCtrl', ['$scope',
 			       '$window',
 			       'UserService',
-			       'LoginService',
-			       'LogoutService',
-			       mainCtrl]);
+			       'AuthService',
+			       homeCtrl]);
 
-function mainCtrl ($scope,
-		   $location,
+module.controller('welcomeCtrl', ['$scope',
+			       '$window',
+			       'UserService',
+			       'AuthService',
+			       welcomeCtrl]);
+
+
+function homeCtrl ($scope,
 		   $window,
 		   UserService,
-		   LoginService,
-		   LogoutService) {
+		   AuthService) {
   'use strict';
 
   $scope.user = {};
   $scope.user.id = '';
   $scope.user.email = '';
   $scope.user.password = '';
-
+  
   $scope.login = function() {
-    LoginService.login($scope.user).$promise.then(function() {
+    AuthService.login($scope.user).then(function() {
       $window.location.href ='/'; 
-    }, function(response, header) {
-      console.log(response);
     });
   };
 
@@ -38,8 +39,25 @@ function mainCtrl ($scope,
     });
   };
 
+}
+
+
+function welcomeCtrl ($scope,
+		   $window,
+		   UserService,
+		   AuthService) {
+
+  'use strict';
+
+  $scope.user = {};
+  $scope.user.me = '';
+
+  UserService.getMe(function(result) {
+    $scope.user.id = result.id;
+  });
+  
   $scope.logout = function() {
-    LogoutService.logout().$promise.then(function() {
+    AuthService.logout().then(function() {
       $window.location.href ='/';
     });
   };

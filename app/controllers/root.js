@@ -11,7 +11,7 @@ rootApi.use(function(req, res, next) {
 rootApi.get('/', function(req, res) {
 
   if (req.session.authorized) {
-    res.render('welcome', { id: req.session.userId });
+    res.render('welcome');
   } else {
     res.render('home');
   }

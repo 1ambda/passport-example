@@ -5,6 +5,7 @@ service.factory('UserService', function($resource) {
 
   return $resource('/user', {}, {
     get: { method: 'GET' },
+    getMe: { method: 'GET', url: '/user/profile/me'},
     getAll : { method: 'GET', isArray: true },
     create: { method: 'POST' },
     delete: { method: 'DELETE' },
@@ -12,20 +13,17 @@ service.factory('UserService', function($resource) {
   });
 });
 
-service.factory('LoginService', function($resource) {
+service.factory('AuthService', function($resource) {
   'use strict';
 
-  return $resource('/login', {}, {
-    login: { method: 'POST' }
-  });
-});
+  return {
+    login: function(user) {
+      return $resource('/login', {}).save(user).$promise;
+    },
 
-service.factory('LogoutService', function($resource) {
-  'use strict';
-  
-  return $resource('/logout', {}, {
-    logout: {
-      method : 'GET'
+    logout: function() {
+      return $resource('/logout', {}).get().$promise;
     }
-  });
+  };
+
 });
