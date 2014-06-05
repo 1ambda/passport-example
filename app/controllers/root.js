@@ -18,6 +18,12 @@ rootApi.get('/', function(req, res) {
 });
 
 rootApi.post('/login', function(req, res) {
+  if (req.session.authorized) {
+    return res.send(200);
+  }
+});
+
+rootApi.post('/loginBareApi', function(req, res) {
 
   if (req.session.authorized) {
     return res.send(200);

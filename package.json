@@ -21,6 +21,7 @@
     "grunt": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-express-server": "^0.4.13",
+    "karma": "^0.12.16",
     "matchdep": "^0.3.0"
   },
   "scripts": {
