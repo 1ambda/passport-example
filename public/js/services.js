@@ -5,7 +5,7 @@ service.factory('UserService', function($resource) {
 
   return $resource('/user', {}, {
     get: { method: 'GET' },
-    getMe: { method: 'GET', url: '/user/profile/me'},
+    getMe: { method: 'GET', url: '/user/profile/me', isArray: false },
     getAll : { method: 'GET', isArray: true },
     create: { method: 'POST' },
     delete: { method: 'DELETE' },

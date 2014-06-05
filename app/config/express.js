@@ -7,6 +7,7 @@ var methodOverride = require('method-override'),
     favicon = require('static-favicon'),
     errorHandler = require('errorhandler'),
     ejs = require('ejs'),
+    passport = require('passport'),
     express = require('express'),
     path = require('path');
 
@@ -36,6 +37,8 @@ module.exports = function(app, config) {
   app.use(session({
     secret : 'express-template'
   }));
+  app.use(passport.initialize());
+  app.use(passport.session());
 
   // development only
   if ( app.get('env') === 'development' ) {

@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var UserSchema = new mongoose.Schema({
-  id: { type: String, required: true },
-  email: { type: String, required: true },
+  id: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
   password: { type: String, required : true },
   createdDate: { type: Date, default: Date.now }
 });
@@ -36,6 +36,10 @@ UserSchema.statics.getById = function(userId, cb) {
   var User = this;
 
   User.findOne({ id: userId }, cb);
+};
+
+UserSchema.statics.verifyPassword = function(user, cb) {
+  this.findOne(user, cb);
 };
 
 UserSchema.statics.login = function(params, cb) {

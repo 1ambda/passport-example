@@ -1,6 +1,7 @@
 var express = require('express'),
     rootApi = express.Router(),
     mongoose = require('mongoose'),
+    passport = require('passport'),
     User = mongoose.model('User');
 
 rootApi.use(function(req, res, next) {
@@ -10,39 +11,36 @@ rootApi.use(function(req, res, next) {
 
 rootApi.get('/', function(req, res) {
 
-  if (req.session.authorized) {
+  if (req.session.passport.user) {
     res.render('welcome');
   } else {
     res.render('home');
   }
 });
 
-rootApi.post('/login', function(req, res) {
-  if (req.session.authorized) {
-    return res.send(200);
-  }
-});
-
-rootApi.post('/loginBareApi', function(req, res) {
-
-  if (req.session.authorized) {
+rootApi.post('/login', function(req, res, next) {
+  if (req.session.passport.user) {
     return res.send(200);
   }
 
-  var user = {
-    id: req.body.id,
-    password: req.body.password
-  };
-
-  User.login(user, function(err) {
+  passport.authenticate('local', function(err, user, info) {
     if (err) {
-      console.log(err);
-      return res.send(err.httpStatus | 500, err.message);
+      return res.send(err.statusCode || 500, err);
     }
-    req.session.authorized = true;
-    req.session.userId = user.id;
-    res.send(200, 'Authorized');
-  });
+
+    if (!user) {
+      return res.send(400, info.message);
+    }
+
+    req.logIn(user, function(err) {
+      if (err) {
+	return res.send(500, err);
+      }
+
+      res.send(200);
+    });
+  })(req, res, next);
+
 });
 
 rootApi.get('/logout', function(req, res) {

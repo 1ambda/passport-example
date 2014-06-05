@@ -21,11 +21,10 @@ require(rootDir +  '/app/config/express')(app, config);
 require(rootDir +  '/app/config/mongoose')(config);
 
 // Configure passport
-// require(rootDir + '/app/config/passport')();
+require(rootDir + '/app/config/passport')();
 
 // Bootstrap routing
 require(rootDir +  '/app/route')(app);
-
 
 // Run application
 app.listen(app.get('port'));

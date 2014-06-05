@@ -50,17 +50,17 @@ userApi.get('/:id', function(req, res) {
 
 userApi.get('/profile/me', function(req, res) {
 
-  if (!req.session.authorized) {
+  if (!req.session.passport.user) {
     return res.send(401, 'Not Authorized');
   }
 
-  User.getById(req.session.userId, function(err, user) {
+  User.findById(req.session.passport.user, function(err, user) {
     if (err) {
       console.log(err);
       return res.send(500);
     }
-    
-    res.send(200, user);
+
+    res.send(200, { id: user.id });
   });
 });
 
