@@ -33,16 +33,13 @@ module.exports = function() {
 	});
       }
 
-      User.verifyPassword({
-	id: id,
-	password: password
-      }, function(err, user) {
+      user.verifyPassword(password , function(err, isMatch) {
 	if (err) {
 	  err.statusCode = 500;
 	  return done(err);
 	}
 
-	if (!user) {
+	if (!isMatch) {
 	  return done(null, false, { message: 'Invalid Password'});
 	} else {
 	  return done(null, user);

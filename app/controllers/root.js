@@ -25,7 +25,8 @@ rootApi.post('/login', function(req, res, next) {
 
   passport.authenticate('local', function(err, user, info) {
     if (err) {
-      return res.send(err.statusCode || 500, err);
+      console.log(err);
+      return res.send(err.httpStatus || 500, err);
     }
 
     if (!user) {

@@ -1,9 +1,10 @@
 {
-  "name": "express4-template",
+  "name": "passport-example",
   "version": "0.0.1",
-  "description": "express 4 template",
+  "description": "passport-example",
   "main": "grunt server",
   "dependencies": {
+    "bcrypt": "^0.7.8",
     "body-parser": "^1.0.1",
     "cookie-parser": "^1.0.1",
     "ejs": "~1.0.0",
@@ -28,6 +29,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "anster",
+  "author": "ansterd@nate.com",
   "license": "MIT"
 }
