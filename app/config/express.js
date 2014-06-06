@@ -2,6 +2,7 @@
 var methodOverride = require('method-override'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
+    RedisStore = require('connect-redis')(session),
     morgan = require('morgan'), // logger
     bodyParser = require('body-parser'),
     favicon = require('static-favicon'),
@@ -35,6 +36,7 @@ module.exports = function(app, config) {
   
   app.use(cookieParser());
   app.use(session({
+    store: new RedisStore(),
     secret : 'express-template'
   }));
   app.use(passport.initialize());
