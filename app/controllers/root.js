@@ -5,7 +5,7 @@ var express = require('express'),
     User = mongoose.model('User');
 
 rootApi.use(function(req, res, next) {
-  // middle ware
+  // middleware
   next();
 });
 
