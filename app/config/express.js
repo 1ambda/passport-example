@@ -15,6 +15,7 @@ var methodOverride = require('method-override'),
 // ejs.open = '{{';
 // ejs.close = '}}';
 
+
 module.exports = function(app, config) {
 
   var env = config.mode || 'development',
@@ -28,17 +29,18 @@ module.exports = function(app, config) {
   app.set('views', path.join(rootDir, 'app/views'));
   app.engine('.html', ejs.__express);
   app.set('view engine', 'html');
-  
-  app.use(methodOverride()); // simulate DELETE and PUT
+
   app.use(bodyParser()); // pull information from html in POST
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded());
-  
+  app.use(methodOverride()); // simulate DELETE and PUT
+
   app.use(cookieParser());
   app.use(session({
     store: new RedisStore(),
     secret : 'express-template'
   }));
+
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -49,3 +51,4 @@ module.exports = function(app, config) {
 
   console.log("\n\tStarting Express PORT : " + port + "\n");
 };
+

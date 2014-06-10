@@ -4,8 +4,9 @@ var mongoose = require('mongoose'),
 
 var UserSchema = new mongoose.Schema({
   id: { type: String, required: true, unique: true },
-  email: { type: String, required: true, unique: true },
-  password: { type: String, required : true },
+  email: { type: String },
+  password: { type: String },
+  provider: { type: String, required: true },
   createdDate: { type: Date, default: Date.now }
 });
 
@@ -32,6 +33,28 @@ UserSchema.pre('save', function(next) {
   });
 });
 
+UserSchema.statics.findOrCreate = function (params, cb){
+  var OAuthUser = this;
+
+  OAuthUser.findOne({ id: params.id }, function(err, oUser) {
+    if (err) {
+      err.httpStatus = 500;
+      return cb(err);
+    }
+
+    if (!oUser) {
+       (new OAuthUser({
+	id: params.id,
+	provider: params.provider,
+	email: params.email
+      })).save(cb);
+      
+    } else {
+      cb(null, oUser);
+    }
+  });
+};
+
 UserSchema.statics.create = function(params, cb) {
   var User = this;
 
@@ -43,7 +66,8 @@ UserSchema.statics.create = function(params, cb) {
     } else if (result.length) {
       var error = new Error('Already Registered');
       error.httpStatus = 409;
-      return cb(error);
+      return cb(error)
+      ;
       
     } else {
       (new User(params)).save(cb);

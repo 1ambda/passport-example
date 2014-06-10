@@ -20,7 +20,7 @@ rootApi.get('/', function(req, res) {
 
 rootApi.post('/login', function(req, res, next) {
   if (req.session.passport.user) {
-    return res.send(200);
+    res.redirect('/');
   }
 
   passport.authenticate('local', function(err, user, info) {
@@ -37,8 +37,8 @@ rootApi.post('/login', function(req, res, next) {
       if (err) {
 	return res.send(500, err);
       }
-
-      res.send(200);
+      
+      res.redirect('/');
     });
   })(req, res, next);
 

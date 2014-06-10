@@ -23,7 +23,7 @@ function homeCtrl ($scope,
   $scope.user.id = '';
   $scope.user.email = '';
   $scope.user.password = '';
-  
+
   $scope.login = function() {
     AuthService.login($scope.user).then(function() {
       $window.location.href ='/'; 

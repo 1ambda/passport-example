@@ -12,6 +12,7 @@ userApi.post('/', function(req, res) {
   var user = {
     id: req.body.id,
     email: req.body.email,
+    provider: 'local',
     password: req.body.password
   };
 
@@ -54,7 +55,7 @@ userApi.get('/profile/me', function(req, res) {
     return res.send(401, 'Not Authorized');
   }
 
-  User.findById(req.session.passport.user, function(err, user) {
+  User.findById(req.user._id, function(err, user) {
     if (err) {
       console.log(err);
       return res.send(500);
