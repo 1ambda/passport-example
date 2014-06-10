@@ -9,7 +9,6 @@ oauthApi.use(function(req, res, next) {
   next();
 });
 
-
 oauthApi.get('/facebook', passport.authenticate('facebook'));
 
 oauthApi.get('/facebook/callback',

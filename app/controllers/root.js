@@ -41,7 +41,6 @@ rootApi.post('/login', function(req, res, next) {
       res.redirect('/');
     });
   })(req, res, next);
-
 });
 
 rootApi.get('/logout', function(req, res) {
