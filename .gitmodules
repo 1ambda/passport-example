@@ -1,0 +1,3 @@
+[submodule "app/lib/passport-openknowl"]
+	path = app/lib/passport-openknowl
+	url = https://github.com/openknowl/passport-openknowl

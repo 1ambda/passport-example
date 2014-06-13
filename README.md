@@ -1,5 +1,12 @@
 # passport-example
 
+```
+git clone --recursive
+npm install
+bower install
+cd app/lib/passport-openknowl
+npm install
+```
 
 ### TODO
 - nconf

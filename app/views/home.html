@@ -39,8 +39,17 @@
             <label for="">password</label>
             <input ng-model="user.password" type="password" name="password" value="" />
 	  </div>
-          <div ng-click="login()" class="ui blue button">Login</div>
-          <a href="/oauth/facebook" class="ui facebook button">Login with Facebook</a>
+	  <div>
+            <div ng-click="login()" class="ui blue button">Login</div>
+	  </div>
+	  <div>
+	    <br/>
+            <a href="/oauth/facebook" class="ui facebook button">Login with Facebook</a>
+	  </div>
+	  <div>
+	    <br/>
+            <a href="/oauth/openknowl" class="ui orange button">Login with Openknowl</a>
+	  </div>
 	</div>
       </div>
       <div class="column">
